@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface TimeZoneService {
 
-  WorldTimeApiIpResponse getTimeZoneInfoByIp();
+  String getExternalIp(String ip);
+
+  WorldTimeApiIpResponse getTimeZoneInfoByIp(String ip);
 
   TimeApiTimezoneZoneResponse getTimeZoneInfo(String timezone);
 

@@ -3,6 +3,7 @@ package dev.mars3142.fhq.timezone_service.timezone.web.controllers;
 import dev.mars3142.fhq.timezone_service.timezone.domain.model.response.LocationResponse;
 import dev.mars3142.fhq.timezone_service.timezone.domain.model.response.TimeZoneResponse;
 import dev.mars3142.fhq.timezone_service.timezone.service.TimeZoneService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +19,9 @@ public class TimeZoneController {
   private final TimeZoneService timeZoneService;
 
   @GetMapping
-  public TimeZoneResponse getTimeZone() {
-    val timezoneInfo = timeZoneService.getTimeZoneInfoByIp();
+  public TimeZoneResponse getTimeZone(HttpServletRequest request) {
+    val ip = timeZoneService.getExternalIp(request.getRemoteAddr());
+    val timezoneInfo = timeZoneService.getTimeZoneInfoByIp(ip);
     val posix = timeZoneService.getPosixTimeZone(timezoneInfo.timezone());
     return new TimeZoneResponse(timezoneInfo.timezone(), timezoneInfo.abbreviation(), posix);
   }
