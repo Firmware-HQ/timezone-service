@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatusCode;
@@ -21,21 +22,24 @@ import org.springframework.web.client.RestClient;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TimeZoneServiceImpl implements TimeZoneService {
 
   private final RestClient restClient;
 
   @Override
   public String getExternalIp(String ip) {
+    var result = ip;
     if (ip.equals("127.0.0.1")) {
       val response = restClient
           .get()
           .uri("https://api.ipify.org?format=json")
           .retrieve()
           .body(IpifyResponse.class);
-      return Objects.requireNonNull(response).ip();
+      result = Objects.requireNonNull(response).ip();
     }
-    return ip;
+    log.info("IP Address: {}", result);
+    return result;
   }
 
   @Override
