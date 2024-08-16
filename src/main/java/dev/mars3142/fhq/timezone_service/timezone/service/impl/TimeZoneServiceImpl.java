@@ -38,7 +38,7 @@ public class TimeZoneServiceImpl implements TimeZoneService {
           .body(IpifyResponse.class);
       result = Objects.requireNonNull(response).ip();
     }
-    log.info("IP Address: {}", result);
+    log.debug("IP Address: {}", result);
     return result;
   }
 
