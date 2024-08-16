@@ -1,0 +1,13 @@
+package dev.mars3142.fhq.timezone_service;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TimezoneServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TimezoneServiceApplication.class, args);
+	}
+
+}
