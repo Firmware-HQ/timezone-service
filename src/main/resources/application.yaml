@@ -1,0 +1,17 @@
+info:
+  application:
+    name: ${spring.application.name}
+    version: '@project.version@'
+    spring-cloud-version: '@spring-cloud.version@'
+    spring-boot-version: '@project.parent.version@'
+
+server:
+  port: ${PORT:8080}
+  shutdown: graceful
+  error:
+    include-message: on_param
+    include-stacktrace: on_param
+
+spring:
+  application:
+    name: timezone-service
