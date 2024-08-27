@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="dev" />
     <module name="timezone-service" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="dev.mars3142.fhq.timezone_service.Application" />
     <method v="2">
