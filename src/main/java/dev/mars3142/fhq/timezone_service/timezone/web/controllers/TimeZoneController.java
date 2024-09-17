@@ -36,7 +36,7 @@ public class TimeZoneController {
   }
 
   @GetMapping("{area}/{location}")
-  public TimeZoneResponse getTimeZone(@PathVariable String area, @PathVariable String location) {
+  public TimeZoneResponse getTimeZoneForLocation(@PathVariable String area, @PathVariable String location) {
     val timezone = area + "/" + location;
     val timezoneInfo = timeZoneService.getTimeZoneInfo(timezone);
     val abbreviation = Objects.requireNonNullElse(timezoneInfo.dstInterval(), new TimeApiTimezoneZoneResponse.Interval(null)).dstName();
