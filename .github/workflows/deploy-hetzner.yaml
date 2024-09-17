@@ -1,0 +1,39 @@
+---
+name: 'deploy to hetzner'
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloning repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and test with Maven
+        run: mvn --batch-mode --update-snapshots verify
+
+      - name: Push to dokku
+        timeout-minutes: 20
+        uses: dokku/github-action@v1
+        with:
+          branch: main
+          git_remote_url: ${{ secrets.HETZNER_GIT_URI }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          git_push_flags: --force
