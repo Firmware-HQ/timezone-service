@@ -15,3 +15,10 @@ server:
 spring:
   application:
     name: timezone-service
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka-service.web:8761/eureka
