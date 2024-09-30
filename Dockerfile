@@ -1,5 +1,5 @@
 # Stage that builds the application, a prerequisite for the running stage
-FROM eclipse-temurin:21-jdk-jammy as build
+FROM eclipse-temurin:21-jdk-jammy AS build
 
 ARG SERVICE_ROOT
 
@@ -30,4 +30,4 @@ USER app
 COPY --chown=app --from=build /usr/src/app/target/*.jar /usr/app/app.jar
 
 EXPOSE 8080
-CMD java -jar /usr/app/app.jar
+CMD ["java", "-jar", "/usr/app/app.jar"]
