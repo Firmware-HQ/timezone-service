@@ -1,4 +1,4 @@
-package dev.mars3142.fhq.timezone_service.root.controller.web;
+package dev.mars3142.fhq.timezone_service.root.web.controller;
 
 import java.net.URI;
 import org.springframework.http.HttpStatus;

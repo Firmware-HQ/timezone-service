@@ -27,7 +27,7 @@ FROM eclipse-temurin:21-jre-jammy
 RUN useradd -m app
 USER app
 
-COPY --chown=app --from=build /usr/src/app/target/*.jar /usr/app/app.jar
+COPY --chown=app --from=build /usr/src/app/target/*.jar /usr/app/timezone.jar
 
 EXPOSE 8080
-CMD ["java", "-jar", "/usr/app/app.jar"]
+CMD ["java", "-jar", "/usr/app/timezone.jar"]

@@ -31,6 +31,7 @@ public class TimeZoneServiceImpl implements TimeZoneService {
   }
 
   @Override
+  @Cacheable(value = "externalIp", key = "{#ip}")
   public String getExternalIp(String ip) {
     var result = ip;
     if (ip.equals("127.0.0.1")) {
