@@ -34,7 +34,7 @@ public class TimeZoneServiceImpl implements TimeZoneService {
   @Cacheable(value = "externalIp", key = "{#ip}")
   public String getExternalIp(String ip) {
     var result = ip;
-    if (ip.equals("127.0.0.1")) {
+    if (ip.equals("127.0.0.1") || ip.equals("0:0:0:0:0:0:0:1")) {
       val response = restClient
           .get()
           .uri("https://api.ipify.org?format=json")
