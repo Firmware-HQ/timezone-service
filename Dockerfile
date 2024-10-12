@@ -1,5 +1,5 @@
 # Stage that builds the application, a prerequisite for the running stage
-FROM eclipse-temurin:21-jdk-jammy AS build
+FROM eclipse-temurin:21-jdk-noble AS build
 
 ARG SERVICE_ROOT
 
@@ -22,7 +22,7 @@ COPY --chown=app:app ${SERVICE_ROOT}/src ./src
 RUN ./mvnw --batch-mode clean verify -DskipTests
 
 # Running stage: the part that is used for running the application
-FROM eclipse-temurin:21-jre-jammy
+FROM eclipse-temurin:21-jre-noble
 
 RUN useradd -m app
 USER app
