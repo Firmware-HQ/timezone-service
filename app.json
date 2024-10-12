@@ -1,0 +1,14 @@
+{
+  "healthchecks": {
+    "web": [
+      {
+        "type":        "readiness",
+        "name":        "web check",
+        "description": "Checking if the app responds to the /actuator/health/readiness endpoint",
+        "path":        "/actuator/health/readiness",
+        "port": 8080,
+        "attempts": 3
+      }
+    ]
+  }
+}

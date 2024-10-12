@@ -16,6 +16,12 @@ spring:
   application:
     name: timezone-service
 
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
 eureka:
   client:
     register-with-eureka: true
@@ -24,6 +30,7 @@ eureka:
       defaultZone: http://eureka-service.web:8761/eureka
   instance:
     instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
