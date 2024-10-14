@@ -1,36 +1,5 @@
-info:
-  application:
-    name: ${spring.application.name}
-    version: '@project.version@'
-    spring-cloud-version: '@spring-cloud.version@'
-    spring-boot-version: '@project.parent.version@'
-
-server:
-  port: ${PORT:8080}
-  shutdown: graceful
-  error:
-    include-message: on_param
-    include-stacktrace: on_param
-
 spring:
   application:
     name: timezone-service
-
-management:
-  endpoint:
-    health:
-      probes:
-        enabled: true
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://eureka-service.web:8761/eureka
-  instance:
-    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
+  config:
+    import: optional:configserver:http://config-service.web:8080
