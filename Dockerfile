@@ -25,7 +25,6 @@ USER app
 
 COPY --chown=app --from=build /usr/src/app/target/*.jar /usr/app/timezone.jar
 
-HEALTHCHECK CMD curl --fail http://localhost:8080/actuator/health/liveness || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:5000/actuator/health/liveness || exit 1
 
-EXPOSE 8080
 CMD ["java", "-jar", "/usr/app/timezone.jar"]
