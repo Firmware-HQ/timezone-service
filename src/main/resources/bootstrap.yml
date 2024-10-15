@@ -13,3 +13,4 @@ spring:
       discovery:
         enabled: true
         serviceId: config-service
+      fail-fast: true
