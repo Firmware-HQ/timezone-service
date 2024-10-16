@@ -11,7 +11,7 @@ USER app
 
 # Copy all needed project files to a folder
 COPY --chown=app ./.mvn/ .mvn
-COPY --chown=app ./mvnw ./pom.xml ./
+COPY --chown=app ./mvnw ./pom.xml ./app.json ./
 COPY --chown=app ./src ./src
 
 # Build the production package
