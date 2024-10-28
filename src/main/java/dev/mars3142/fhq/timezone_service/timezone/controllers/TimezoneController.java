@@ -31,7 +31,7 @@ public class TimezoneController {
     val timezoneInfo = timeZoneService.getTimeZoneInfoByIp(ip);
     val posix = timeZoneService.getPosixTimeZone(timezoneInfo.timezone());
     return new ResponseEntity<>(
-        TimezoneResponse.builder().timezone(timezoneInfo.timezone()).abbreviation(timezoneInfo.abbreviation())
+        TimezoneResponse.builder().timezone(timezoneInfo.timezone())
             .posix_tz(posix).build(), HttpStatus.OK);
   }
 
@@ -49,7 +49,7 @@ public class TimezoneController {
         new TimeApiTimezoneZoneResponse.Interval(null)).dstName();
     val posix = timeZoneService.getPosixTimeZone(timezone);
     return new ResponseEntity<>(
-        TimezoneResponse.builder().timezone(timezone).abbreviation(abbreviation).posix_tz(posix).build(),
+        TimezoneResponse.builder().timezone(timezone).posix_tz(posix).build(),
         HttpStatus.OK);
   }
 }

@@ -11,6 +11,5 @@ import org.springframework.hateoas.RepresentationModel;
 public class TimezoneResponse extends RepresentationModel<TimezoneResponse> {
 
   private final String timezone;
-  private final String abbreviation;
   private final String posix_tz;
 }

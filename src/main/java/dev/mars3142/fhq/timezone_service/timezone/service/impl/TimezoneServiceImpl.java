@@ -1,9 +1,9 @@
 package dev.mars3142.fhq.timezone_service.timezone.service.impl;
 
 import dev.mars3142.fhq.timezone_service.exceptions.NotFoundException;
+import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.IPApiResponse;
 import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.IpifyResponse;
 import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.TimeApiTimezoneZoneResponse;
-import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.WorldTimeApiIpResponse;
 import dev.mars3142.fhq.timezone_service.timezone.service.TimezoneService;
 import java.io.File;
 import java.io.IOException;
@@ -47,15 +47,19 @@ public class TimezoneServiceImpl implements TimezoneService {
 
   @Override
   @Cacheable(value = "TZInfoByIp", key = "{#ip}")
-  public WorldTimeApiIpResponse getTimeZoneInfoByIp(String ip) {
+  public IPApiResponse getTimeZoneInfoByIp(String ip) {
       return restClient
           .get()
-          .uri("https://worldtimeapi.org/api/ip/" + ip)
+          .uri(builder -> builder
+              .scheme("http")
+              .host("ip-api.com")
+              .path("json/" + ip)
+              .build())
           .retrieve()
           .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
             throw new NotFoundException();
           })
-          .body(WorldTimeApiIpResponse.class);
+          .body(IPApiResponse.class);
   }
 
   @Override
