@@ -1,5 +1,7 @@
 package dev.mars3142.fhq.timezone_service.timezone.controllers;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
 import dev.mars3142.fhq.timezone_service.timezone.domain.model.response.LocationResponse;
 import dev.mars3142.fhq.timezone_service.timezone.domain.model.response.TimezoneResponse;
 import dev.mars3142.fhq.timezone_service.timezone.service.TimezoneService;
@@ -31,6 +33,7 @@ public class TimezoneController {
     val response = new TimezoneResponse();
     response.setTimezone(timezoneInfo.timezone());
     response.setPosix_tz(posix);
+    response.add(linkTo(TimezoneController.class).slash(ip).withSelfRel());
     return response;
   }
 
@@ -49,6 +52,7 @@ public class TimezoneController {
     val response = new TimezoneResponse();
     response.setTimezone(timezone);
     response.setPosix_tz(posix);
+    response.add(linkTo(TimezoneController.class).slash(area).slash(location).withSelfRel());
     return response;
   }
 }
