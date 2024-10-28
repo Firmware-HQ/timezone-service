@@ -2,15 +2,15 @@
 
 ## Endpoints
 
-`curl https://firmware-hq.dev/v1/timezone`
+`curl https://api.firmware-hq.dev/v1/timezone`
 
 Will return the timezone information for the requesting client. Uses the external IP of the client
 
-`curl https://firmware-hq.dev/v1/timezone/Europe`
+`curl https://api.firmware-hq.dev/v1/timezone/Europe`
 
 Will return all locations within the area.
 
-`curl https://firmware-hq.dev/v1/timezone/Europe/Berlin`
+`curl https://api.firmware-hq.dev/v1/timezone/Europe/Berlin`
 
 Will return the timezone information for a specific area/location combination.
 
