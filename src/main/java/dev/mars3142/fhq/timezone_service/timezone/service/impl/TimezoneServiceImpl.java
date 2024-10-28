@@ -48,11 +48,14 @@ public class TimezoneServiceImpl implements TimezoneService {
   @Override
   @Cacheable(value = "TZInfoByIp", key = "{#ip}")
   public WorldTimeApiIpResponse getTimeZoneInfoByIp(String ip) {
-    return restClient
-        .get()
-        .uri("https://worldtimeapi.org/api/ip/" + ip)
-        .retrieve()
-        .body(WorldTimeApiIpResponse.class);
+      return restClient
+          .get()
+          .uri("https://worldtimeapi.org/api/ip/" + ip)
+          .retrieve()
+          .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+            throw new NotFoundException();
+          })
+          .body(WorldTimeApiIpResponse.class);
   }
 
   @Override
