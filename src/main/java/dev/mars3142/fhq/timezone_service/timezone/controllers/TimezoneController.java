@@ -28,8 +28,10 @@ public class TimezoneController {
     val ip = timeZoneService.getExternalIp(clientIp);
     val timezoneInfo = timeZoneService.getTimeZoneInfoByIp(ip);
     val posix = timeZoneService.getPosixTimeZone(timezoneInfo.timezone());
-    return TimezoneResponse.builder().timezone(timezoneInfo.timezone())
-        .posix_tz(posix).build();
+    val response = new TimezoneResponse();
+    response.setTimezone(timezoneInfo.timezone());
+    response.setPosix_tz(posix);
+    return response;
   }
 
   @GetMapping("{area}")
@@ -44,6 +46,9 @@ public class TimezoneController {
   public TimezoneResponse getTimeZoneForLocation(@PathVariable String area, @PathVariable String location) {
     val timezone = area + "/" + location;
     val posix = timeZoneService.getPosixTimeZone(timezone);
-    return TimezoneResponse.builder().timezone(timezone).posix_tz(posix).build();
+    val response = new TimezoneResponse();
+    response.setTimezone(timezone);
+    response.setPosix_tz(posix);
+    return response;
   }
 }
