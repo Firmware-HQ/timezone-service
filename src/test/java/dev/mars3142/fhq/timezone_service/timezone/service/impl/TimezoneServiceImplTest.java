@@ -14,11 +14,11 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @DisplayName("Testing Timezone Service Default Implementation")
-@RestClientTest(TimeZoneServiceImpl.class)
-class TimeZoneServiceImplTest {
+@RestClientTest(TimezoneServiceImpl.class)
+class TimezoneServiceImplTest {
 
   @Autowired
-  private TimeZoneServiceImpl timeZoneService;
+  private TimezoneServiceImpl timeZoneService;
 
   @Autowired
   private MockRestServiceServer server;

@@ -4,7 +4,7 @@ import dev.mars3142.fhq.timezone_service.exceptions.NotFoundException;
 import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.IpifyResponse;
 import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.TimeApiTimezoneZoneResponse;
 import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.WorldTimeApiIpResponse;
-import dev.mars3142.fhq.timezone_service.timezone.service.TimeZoneService;
+import dev.mars3142.fhq.timezone_service.timezone.service.TimezoneService;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,11 +21,11 @@ import org.springframework.web.client.RestClient;
 
 @Service
 @Slf4j
-public class TimeZoneServiceImpl implements TimeZoneService {
+public class TimezoneServiceImpl implements TimezoneService {
 
   private final RestClient restClient;
 
-  public TimeZoneServiceImpl(RestClient.Builder restClientBuilder) {
+  public TimezoneServiceImpl(RestClient.Builder restClientBuilder) {
     restClient = restClientBuilder.build();
   }
 

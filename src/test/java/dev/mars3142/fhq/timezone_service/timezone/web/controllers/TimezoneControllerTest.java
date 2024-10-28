@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("Testing Timezone RestController")
-public class TimeZoneControllerTest {
+public class TimezoneControllerTest {
 
   @LocalServerPort
   private int port;

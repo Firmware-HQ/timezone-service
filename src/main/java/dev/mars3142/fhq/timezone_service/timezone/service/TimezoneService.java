@@ -4,7 +4,7 @@ import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.TimeA
 import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.WorldTimeApiIpResponse;
 import java.util.List;
 
-public interface TimeZoneService {
+public interface TimezoneService {
 
   String getExternalIp(String ip);
 

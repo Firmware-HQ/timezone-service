@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 public class OpenAPIConfig {
 
   @Bean
-  public OpenAPI timeZoneOpenAPI() {
+  public OpenAPI timezoneOpenAPI() {
     return new OpenAPI()
-        .info(new Info().title("TimeZone API").version("1.0"))
+        .info(new Info().title("Timezone API").version("1.0"))
         .servers(
             List.of(
                 new Server().url("https://api.firmware-hq.dev"),

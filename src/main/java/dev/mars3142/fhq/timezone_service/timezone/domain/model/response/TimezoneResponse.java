@@ -8,7 +8,7 @@ import org.springframework.hateoas.RepresentationModel;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class TimeZoneResponse extends RepresentationModel<TimeZoneResponse> {
+public class TimezoneResponse extends RepresentationModel<TimezoneResponse> {
 
   private final String timezone;
   private final String abbreviation;
