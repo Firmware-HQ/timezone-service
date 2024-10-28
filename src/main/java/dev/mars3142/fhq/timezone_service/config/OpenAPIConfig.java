@@ -16,7 +16,7 @@ public class OpenAPIConfig {
         .info(new Info().title("TimeZone API").version("1.0"))
         .servers(
             List.of(
-                new Server().url("https://api.firmware-hq.dev/v1/timezone"),
+                new Server().url("https://api.firmware-hq.dev"),
                 new Server().url("http://localhost:8090")
             )
         );
