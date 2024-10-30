@@ -15,6 +15,9 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -48,18 +51,18 @@ public class TimezoneServiceImpl implements TimezoneService {
   @Override
   @Cacheable(value = "TZInfoByIp", key = "{#ip}")
   public IPApiResponse getTimeZoneInfoByIp(String ip) {
-      return restClient
-          .get()
-          .uri(builder -> builder
-              .scheme("http")
-              .host("ip-api.com")
-              .path("json/" + ip)
-              .build())
-          .retrieve()
-          .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
-            throw new NotFoundException();
-          })
-          .body(IPApiResponse.class);
+    return restClient
+        .get()
+        .uri(builder -> builder
+            .scheme("http")
+            .host("ip-api.com")
+            .path("json/" + ip)
+            .build())
+        .retrieve()
+        .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+          throw new NotFoundException();
+        })
+        .body(IPApiResponse.class);
   }
 
   @Override
@@ -97,19 +100,41 @@ public class TimezoneServiceImpl implements TimezoneService {
   }
 
   @Override
-  @Cacheable(value = "locations", key = "{#area}")
-  public List<String> getLocations(String area) {
+  @Cacheable(value = "locations", key = "{#area, #pageRequest}")
+  public Page<String> getPagedLocations(String area, PageRequest pageRequest) {
     val directory = new File("/usr/share/zoneinfo/" + area);
     if (!directory.exists()) {
       throw new NotFoundException();
     }
-    return Stream.of(Objects.requireNonNull(directory.listFiles()))
+    return toPage(Stream.of(Objects.requireNonNull(directory.listFiles()))
         .filter(file -> !file.isDirectory())
         .map(file -> {
           val path = file.getPath().split("/");
           return path[path.length - 2] + "/" + path[path.length - 1];
         })
-        .sorted()
-        .toList();
+        .toList(), pageRequest);
+  }
+
+  Page<String> toPage(List<String> list, PageRequest pageRequest) {
+    val pageSize = pageRequest.getPageSize();
+    val pageNumber = pageRequest.getPageNumber();
+    val totalPages = list.size() / pageSize;
+
+    int max = pageNumber >= totalPages ? list.size() : pageSize * (pageNumber + 1);
+    int min = pageNumber > totalPages ? max : pageSize * pageNumber;
+
+    var content = list.stream().sorted((left, right) -> {
+          if (!pageRequest.getSort().isSorted()) {
+            return 0;
+          }
+
+          if (Objects.requireNonNull(pageRequest.getSort().getOrderFor("location")).isAscending()) {
+            return left.compareTo(right);
+          } else {
+            return right.compareTo(left);
+          }
+        }
+    );
+    return new PageImpl<>(content.toList().subList(min, max), pageRequest, list.size());
   }
 }

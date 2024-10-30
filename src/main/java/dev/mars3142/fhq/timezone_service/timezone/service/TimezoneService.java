@@ -2,7 +2,8 @@ package dev.mars3142.fhq.timezone_service.timezone.service;
 
 import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.IPApiResponse;
 import dev.mars3142.fhq.timezone_service.timezone.domain.entities.response.TimeApiTimezoneZoneResponse;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface TimezoneService {
 
@@ -14,5 +15,5 @@ public interface TimezoneService {
 
   String getPosixTimeZone(String timezone);
 
-  List<String> getLocations(String area);
+  Page<String> getPagedLocations(String area, PageRequest pageRequest);
 }

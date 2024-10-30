@@ -59,6 +59,6 @@ class TimezoneServiceImplTest {
   }
 
   @Test
-  void getLocations() {
+  void getPagedLocations() {
   }
 }

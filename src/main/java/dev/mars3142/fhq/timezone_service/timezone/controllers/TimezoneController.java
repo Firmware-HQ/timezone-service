@@ -1,19 +1,18 @@
 package dev.mars3142.fhq.timezone_service.timezone.controllers;
 
-import static org.springframework.beans.support.PagedListHolder.DEFAULT_PAGE_SIZE;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
-import dev.mars3142.fhq.timezone_service.timezone.domain.model.response.LocationResponse;
 import dev.mars3142.fhq.timezone_service.timezone.domain.model.response.TimezoneResponse;
 import dev.mars3142.fhq.timezone_service.timezone.service.TimezoneService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.springdoc.core.converters.models.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,18 +34,20 @@ public class TimezoneController {
     val response = new TimezoneResponse();
     response.setTimezone(timezoneInfo.timezone());
     response.setPosix_tz(posix);
-    response.add(linkTo(TimezoneController.class).slash(ip).withSelfRel());
     return response;
   }
 
   @GetMapping("{area}")
   @ResponseStatus(HttpStatus.OK)
-  public LocationResponse getLocations(@PathVariable String area) {
-    val locations = timeZoneService.getLocations(area);
-    val result = new LocationResponse();
-    result.setLocations(locations);
-    result.add(linkTo(TimezoneController.class).slash(area).withSelfRel());
-    return result;
+  public Page<String> getLocations(@PathVariable String area,
+      @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+      @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+      @RequestParam(value = "direction", required = false) String direction) {
+    var pageRequest = PageRequest.of(page, pageSize);
+    if (direction != null && !direction.isEmpty()) {
+      pageRequest = PageRequest.of(page, pageSize, Direction.fromString(direction), "location");
+    }
+    return timeZoneService.getPagedLocations(area, pageRequest);
   }
 
   @GetMapping("{area}/{location}")
@@ -57,7 +58,6 @@ public class TimezoneController {
     val response = new TimezoneResponse();
     response.setTimezone(timezone);
     response.setPosix_tz(posix);
-    response.add(linkTo(TimezoneController.class).slash(area).slash(location).withSelfRel());
     return response;
   }
 }
