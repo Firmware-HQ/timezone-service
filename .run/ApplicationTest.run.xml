@@ -3,7 +3,7 @@
     <module name="timezone-service" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="dev.mars3142.fhq.timezone_service.*" />
+        <option name="PATTERN" value="dev.mars3142.fhq.timezone.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

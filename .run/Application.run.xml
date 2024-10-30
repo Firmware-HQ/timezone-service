@@ -5,7 +5,7 @@
       <env name="EUREKA" value="http://localhost:8761/eureka" />
     </envs>
     <module name="timezone-service" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="dev.mars3142.fhq.timezone_service.Application" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="dev.mars3142.fhq.timezone.Application" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
