@@ -30,7 +30,7 @@ COPY --chown=app --from=build /usr/src/app/opentelemetry-javaagent.jar /usr/app/
 
 ENV JAVA_TOOL_OPTIONS="-javaagent:/usr/app/opentelemetry-javaagent.jar"
 ENV OTEL_SERVICE_NAME="timezone-service"
-ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://opentelemetry-collector.web.1:4318"
+ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://opentelemetry-collector.web:4318"
 
 HEALTHCHECK CMD curl --fail http://localhost:5000/actuator/health/liveness || exit 1
 
