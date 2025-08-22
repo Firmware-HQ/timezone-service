@@ -1,3 +1,4 @@
+# Stage that builds the application, a prerequisite for the running stage
 FROM eclipse-temurin:21-jdk-noble AS build
 
 RUN apt-get update -qq
@@ -10,7 +11,7 @@ USER app
 
 # Copy all needed project files to a folder
 COPY --chown=app ./.mvn/ .mvn
-COPY --chown=app ./mvnw ./pom.xml ./app.json ./
+COPY --chown=app ./mvnw ./pom.xml ./
 COPY --chown=app ./src ./src
 
 RUN curl -OL https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
