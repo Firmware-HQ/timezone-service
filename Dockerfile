@@ -1,4 +1,3 @@
-# Stage that builds the application, a prerequisite for the running stage
 FROM eclipse-temurin:21-jdk-noble AS build
 
 RUN apt-get update -qq
@@ -28,10 +27,6 @@ USER app
 COPY --chown=app --from=build /usr/src/app/target/*.jar /usr/app/timezone.jar
 COPY --chown=app --from=build /usr/src/app/opentelemetry-javaagent.jar /usr/app/opentelemetry-javaagent.jar
 
-ENV JAVA_TOOL_OPTIONS="-javaagent:/usr/app/opentelemetry-javaagent.jar"
-ENV OTEL_SERVICE_NAME="timezone-service"
-ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://opentelemetry-collector.web:4318"
-
-HEALTHCHECK CMD curl --fail http://localhost:5000/actuator/health/liveness || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:8080/actuator/health || exit 1
 
 CMD ["java", "-jar", "/usr/app/timezone.jar"]
