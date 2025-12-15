@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>dev.mars3142.fhq</groupId>
 	<artifactId>timezone-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>timezone-service</name>
 	<description>TimeZone Service</description>
 	<url/>
