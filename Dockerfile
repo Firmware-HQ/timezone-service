@@ -1,5 +1,5 @@
 # Stage that builds the application, a prerequisite for the running stage
-FROM eclipse-temurin:21-jdk-noble AS build
+FROM eclipse-temurin:26-jdk-noble AS build
 
 RUN apt-get update -qq
 
@@ -20,7 +20,7 @@ RUN curl -OL https://github.com/open-telemetry/opentelemetry-java-instrumentatio
 RUN ./mvnw --batch-mode clean verify -DskipTests
 
 # Running stage: the part that is used for running the application
-FROM eclipse-temurin:21-jre-noble
+FROM eclipse-temurin:26-jre-noble
 
 RUN useradd -m app
 USER app
